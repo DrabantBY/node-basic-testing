@@ -1,17 +1,62 @@
-// Uncomment the code below and write your tests
-/* import {  simpleCalculator, Action } from './index';
+import { Action, simpleCalculator } from './index';
 
-const testCases = [
-    { a: 1, b: 2, action: Action.Add, expected: 3 },
-    { a: 2, b: 2, action: Action.Add, expected: 4 },
-    { a: 3, b: 2, action: Action.Add, expected: 5 },
-    // continue cases for other actions    
-]; */
+const a = 4;
+const b = 2;
 
-describe('simpleCalculator', () => {
-  // This test case is just to run this test suite, remove it when you write your own tests
-  test('should blah-blah', () => {
-    expect(true).toBe(true);
+const commonTestCases = [
+  {
+    a,
+    b,
+    message: 'should add two numbers',
+    action: Action.Add,
+    expected: 6,
+  },
+  {
+    a,
+    b,
+    message: 'should subtract two numbers',
+    action: Action.Subtract,
+    expected: 2,
+  },
+  {
+    a,
+    b,
+    message: 'should multiply two numbers',
+    action: Action.Multiply,
+    expected: 8,
+  },
+  {
+    a,
+    b,
+    message: 'should divide two numbers',
+    action: Action.Divide,
+    expected: 2,
+  },
+  {
+    a,
+    b,
+    message: 'should exponentiate two numbers',
+    action: Action.Exponentiate,
+    expected: 16,
+  },
+];
+
+const invalidTestCases = [
+  { a, b, message: 'should return null for invalid action', action: '%' },
+  {
+    a: '4',
+    b: '2',
+    message: 'should return null for invalid arguments',
+    action: Action.Add,
+  },
+];
+
+describe('simpleCalculator tests', () => {
+  test.each(commonTestCases)('$message', ({ a, b, action, expected }) => {
+    expect(simpleCalculator({ a, b, action })).toBe(expected);
   });
-  // Consider to use Jest table tests API to test all cases above
+
+  test.each(invalidTestCases)('$message', ({ a, b, action }) => {
+    expect(simpleCalculator({ a, b, action })).toBeNull();
+  });
 });
