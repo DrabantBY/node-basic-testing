@@ -1,60 +1,52 @@
-// Uncomment the code below and write your tests
 import { Action, simpleCalculator } from './index';
 
 const a = 4;
 const b = 2;
-const action = '%';
+
+const EXPECTED = {
+  [Action.Add]: 6,
+  [Action.Subtract]: 2,
+  [Action.Divide]: 2,
+  [Action.Multiply]: 8,
+  [Action.Exponentiate]: 16,
+};
 
 describe('simpleCalculator tests', () => {
-  test.each([
-    {
-      a,
-      b,
-      message: 'should add two numbers',
-      action: Action.Add,
-      expected: 6,
-    },
-    {
-      a,
-      b,
-      message: 'should subtract two numbers',
-      action: Action.Subtract,
-      expected: 2,
-    },
-    {
-      a,
-      b,
-      message: 'should multiply two numbers',
-      action: Action.Multiply,
-      expected: 8,
-    },
-    {
-      a,
-      b,
-      message: 'should divide two numbers',
-      action: Action.Divide,
-      expected: 2,
-    },
-    {
-      a,
-      b,
-      message: 'should exponentiate two numbers',
-      action: Action.Exponentiate,
-      expected: 16,
-    },
-  ])('$message', ({ a, b, action, expected }) => {
-    expect(simpleCalculator({ a, b, action })).toBe(expected);
+  test('should add two numbers', () => {
+    expect(simpleCalculator({ a, b, action: Action.Add })).toBe(
+      EXPECTED[Action.Add],
+    );
   });
 
-  test.each([
-    { a, b, message: 'should return null for invalid action', action },
-    {
-      a: '4',
-      b: '2',
-      message: 'should return null for invalid arguments',
-      action: Action.Add,
-    },
-  ])('$message', ({ a, b, action }) => {
-    expect(simpleCalculator({ a, b, action })).toBeNull();
+  test('should subtract two numbers', () => {
+    expect(simpleCalculator({ a, b, action: Action.Subtract })).toBe(
+      EXPECTED[Action.Subtract],
+    );
+  });
+
+  test('should multiply two numbers', () => {
+    expect(simpleCalculator({ a, b, action: Action.Multiply })).toBe(
+      EXPECTED[Action.Multiply],
+    );
+  });
+
+  test('should divide two numbers', () => {
+    expect(simpleCalculator({ a, b, action: Action.Divide })).toBe(
+      EXPECTED[Action.Divide],
+    );
+  });
+
+  test('should exponentiate two numbers', () => {
+    expect(simpleCalculator({ a, b, action: Action.Exponentiate })).toBe(
+      EXPECTED[Action.Exponentiate],
+    );
+  });
+
+  test('should return null for invalid action', () => {
+    expect(simpleCalculator({ a, b, action: '%' })).toBeNull();
+  });
+
+  test('should return null for invalid arguments', () => {
+    expect(simpleCalculator({ a: '4', b: '2', action: Action.Add })).toBeNull();
   });
 });
