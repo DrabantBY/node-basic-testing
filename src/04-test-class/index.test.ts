@@ -66,23 +66,23 @@ describe('BankAccount', () => {
   });
 
   test('fetchBalance should return number in case if request did not failed', async () => {
-    mockRandomFn.mockReturnValueOnce(150).mockReturnValueOnce(1);
-    await expect(account.fetchBalance()).resolves.toBe(150);
+    mockRandomFn.mockReturnValueOnce(AMOUNT).mockReturnValueOnce(1);
+    await expect(account.fetchBalance()).resolves.toBe(AMOUNT);
   });
 
   test('fetchBalance should return null when request failed', async () => {
-    mockRandomFn.mockReturnValueOnce(100).mockReturnValueOnce(0);
+    mockRandomFn.mockReturnValueOnce(AMOUNT).mockReturnValueOnce(0);
     await expect(account.fetchBalance()).resolves.toBeNull();
   });
 
   test('should set new balance if fetchBalance returned number', async () => {
-    mockRandomFn.mockReturnValueOnce(150).mockReturnValueOnce(1);
+    mockRandomFn.mockReturnValueOnce(AMOUNT).mockReturnValueOnce(1);
     await account.synchronizeBalance();
-    expect(account.getBalance()).toBe(150);
+    expect(account.getBalance()).toBe(AMOUNT);
   });
 
   test('should throw error if fetchBalance returned null', async () => {
-    mockRandomFn.mockReturnValueOnce(100).mockReturnValueOnce(0);
+    mockRandomFn.mockReturnValueOnce(AMOUNT).mockReturnValueOnce(0);
     await expect(account.synchronizeBalance()).rejects.toThrow(
       SynchronizationFailedError,
     );
