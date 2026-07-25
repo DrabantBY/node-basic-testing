@@ -3,7 +3,7 @@ import { Action, simpleCalculator } from './index';
 const a = 4;
 const b = 2;
 
-const commonTestCases = [
+const VALID_TEST_CASES = [
   {
     a,
     b,
@@ -41,7 +41,7 @@ const commonTestCases = [
   },
 ];
 
-const invalidTestCases = [
+const INVALID_TEST_CASES = [
   { a, b, message: 'should return null for invalid action', action: '%' },
   {
     a: '4',
@@ -52,11 +52,11 @@ const invalidTestCases = [
 ];
 
 describe('simpleCalculator tests', () => {
-  test.each(commonTestCases)('$message', ({ a, b, action, expected }) => {
+  test.each(VALID_TEST_CASES)('$message', ({ a, b, action, expected }) => {
     expect(simpleCalculator({ a, b, action })).toBe(expected);
   });
 
-  test.each(invalidTestCases)('$message', ({ a, b, action }) => {
+  test.each(INVALID_TEST_CASES)('$message', ({ a, b, action }) => {
     expect(simpleCalculator({ a, b, action })).toBeNull();
   });
 });
